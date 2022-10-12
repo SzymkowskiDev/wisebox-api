@@ -1,111 +1,16 @@
 
-# Project Title
-📊 Size, dependencies, version, code coverage
+# WiseBox API
+This repo contains a ready-to-deploy code of the API that serves the needs of the [WiseBox frontend app](https://github.com/SzymkowskiDev/wisebox-app).
 
-Short description.
+In other words, this is the place for Python backend.
 
-## Contents
-Table of contents goes here
-
-## 📋 Requirements
-Sth.
-
-## ⭐ Features
-Introductory sentance.
-
-⭐ **Feature 1**
-
-Description of feature 1.
-
-⭐ **Feature 2**
-
-Description of feature 2.
-
-## 📝 Examples
-**Example 1. Title**
-
-Description of the example.
-```javascript
-CODE GOES HERE
-```
-**Example 2. Title**
-
-Description of the example.
-```javascript
-CODE GOES HERE
-```
-
-## 👨‍💻 Contributing
-Sth
-
-## 📦 Builds
-Sth
-
-## 📂 Directory Structure
-Sth
-
-## 📅 Release schedule / Development schedule / Plans / TODOs
-**Version 1.0.0**
-
-- [x] Feature 1
-- [x] Feature 2
-- [x] Feature 3
-
-**Version 2.0.0**
-
-- [ ] Feature 4
-- [ ] Feature 5
-- [ ] Feature 6
-
-## 🆕 Changelog
-A changelog is a file which contains a curated, chronologically ordered list of notable changes for each version of a project.
-
-## ⚙ Configurations
-Sth
-
-## 💡 Tips
-💭 **Tip 1**
-
-Description of tip 1.
-
-💭 **Tip 2**
-
-Description of tip 1.
-
-## 🚧 Warnings / Common Errors / Known Issues
-
-⚠️ **Warning 1**
-
-Description of warning 1.
-
-⚠️ **Warning 2**
-
-Description of warning 2.
-
-## 🧰 Troubleshooting
-🚩 **Error 1**
-
-Solution to error 1.
-
-``` SOLUTION CODE ```
-
-🚩 **Error 2**
-
-Solution to error 2.
-
-
-``` SOLUTION CODE ```
-
-## 🚀 Upgrading
+## 🚀 How to run
 Description.
 
-## 📖 Documentation
-Link to the wiki or external site.
-
-## 🔗 Related Projects / Thanks / References / Acknowledgement 
-* Description 1 [Name 1](http://markdown.github.io)
-* Description 2 [Name 2](http://markdown.github.io)
-* Description 3 [Name 3](http://markdown.github.io)
+## 🔗 Related Projects
+* The top level repo [WiseBox](https://github.com/SzymkowskiDev/WiseBox)
+* The kanban board [WiseBox Project](https://github.com/users/SzymkowskiDev/projects/7/views/1)
+* Frontend app [wisebox-api](https://github.com/SzymkowskiDev/wisebox-app)
 
 ## 🎓 Learning Materials
 * Description 1 [Name 1](http://markdown.github.io)
