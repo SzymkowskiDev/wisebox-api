@@ -12,10 +12,11 @@ Description.
 * The kanban board [WiseBox Project](https://github.com/users/SzymkowskiDev/projects/7/views/1)
 * Frontend app [wisebox-api](https://github.com/SzymkowskiDev/wisebox-app)
 
-## 🎓 Learning Materials
-* Description 1 [Name 1](http://markdown.github.io)
-* Description 2 [Name 2](http://markdown.github.io)
-* Description 3 [Name 3](http://markdown.github.io)
+## 🎓 Documentation
+* Web framework for building API: [FastAPI](https://fastapi.tiangolo.com/)
+* Relational database [SQLite](https://www.sqlite.org/index.html)
+* Object Relational Mapper [SQLAlchemy](https://docs.sqlalchemy.org/en/14/orm/tutorial.html)
+* Free API hosting's deployment CLI [Deta CLI](https://docs.deta.sh/docs/cli/commands)
 
 ## 📄 License
 [MIT License](https://choosealicense.com/licenses/mit/) ©️ 2019-2020 [Kamil Szymkowski](https://github.com/SzymkowskiDev "Get in touch!")
