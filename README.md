@@ -10,7 +10,7 @@ Dependencies are listed in the `requirements.txt` file. To install project depen
 ## 🚀 How to run
 ### How to access the API on the web?
 
-Navigate [here](https://d4ttvo.deta.dev/docs) to view API's documentation.
+Navigate [https://d4ttvo.deta.dev/docs](https://d4ttvo.deta.dev/docs) to access the REST API lanunched on the local development server.
 
 ### How to run the API locally?
 
