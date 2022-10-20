@@ -11,6 +11,7 @@ Description.
 * The top level repo [WiseBox](https://github.com/SzymkowskiDev/WiseBox)
 * The kanban board [WiseBox Project](https://github.com/users/SzymkowskiDev/projects/7/views/1)
 * Frontend app [wisebox-api](https://github.com/SzymkowskiDev/wisebox-app)
+* API can be accessed online [here](https://d4ttvo.deta.dev/docs)
 
 ## 🎓 Documentation
 * Web framework for building API: [FastAPI](https://fastapi.tiangolo.com/)
