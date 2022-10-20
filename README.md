@@ -30,7 +30,9 @@ The API will open in the browser at http://127.0.0.1:8000/docs
 
 2. [Install the Deta Command Line Tool](https://docs.deta.sh/docs/cli/install/)
 
-3. Open command prompt and navigate to the project's directory. Then run the command `deta deploy`.
+3. Open command prompt and navigate to the project's directory. Then run the command `deta login`.
+
+4. Then run the command `deta deploy`.
 
 ## 🔗 Related Projects
 * The top level repo [WiseBox](https://github.com/SzymkowskiDev/WiseBox)
