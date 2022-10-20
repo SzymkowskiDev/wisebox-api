@@ -46,7 +46,7 @@ The API will open in the browser at http://127.0.0.1:8000/docs
 * Object Relational Mapper [SQLAlchemy](https://docs.sqlalchemy.org/en/14/orm/tutorial.html)
 * Free API hosting's deployment CLI [Deta CLI](https://docs.deta.sh/docs/cli/commands)
 
-## 📝 Examples
+## 📝 How to use the REST API?
 **Example 1. Title**
 
 Description of the example.
