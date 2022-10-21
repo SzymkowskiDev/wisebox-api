@@ -6,20 +6,20 @@ from database import Base
 class Users(Base):
     __tablename__ = "USERS"
 
-    USER_ID = Column(Integer, primary_key = True) # TODO: Make it auto-generate with identity function
+    USER_ID = Column(Integer, primary_key = True, autoincrement = True) # TODO: Make it auto-generate with identity function
     FIRST_NAME = Column(String)
     LAST_NAME = Column(String)
     EMAIL = Column(String)
     HASH_PASSWORD = Column(String)
 
     # What follows is not an attribute but the establishment of one-to-many relationship
-    magazines = relationship("Magazines", back_populates="users")
+    magazines = relationship("Magazines", back_populates = "users")
 
 class Magazines(Base):
     __tablename__ = "MAGAZINES"
 
     USER_ID = Column(Integer, ForeignKey("USERS.USER_ID"))
-    MAG_ID = Column(Integer, primary_key = True) # TODO: Make it auto-generate with identity function
+    MAG_ID = Column(Integer, primary_key = True, autoincrement = True) # TODO: Make it auto-generate with identity function
     NAME = Column(String)
     DESCRIPTION = Column(String)
     AVATAR = Column(String)
@@ -27,14 +27,14 @@ class Magazines(Base):
     DATE_OF_CREATION = Column(String) # TODO: Change to date later on
 
     # What follows is not an attribute but the establishment of one-to-many relationship
-    users = relationship("Users", back_populates="magazines")
-    products = relationship("Products", back_populates="magazines")
+    users = relationship("Users", back_populates = "magazines")
+    products = relationship("Products", back_populates = "magazines")
 
 class Products(Base):
     __tablename__ = "PRODUCTS"
 
     MAG_ID = Column(Integer, ForeignKey("MAGAZINES.MAG_ID"))
-    PROD_ID = Column(Integer, primary_key = True) # TODO: Make it auto-generate with identity function
+    PROD_ID = Column(Integer, primary_key = True, autoincrement = True) # TODO: Make it auto-generate with identity function
     NAME = Column(String)
     STATUS = Column(String) # TODO: Check constraint
     QUANTITY = Column(Integer)
@@ -45,7 +45,7 @@ class Products(Base):
     EXPIRY_DATE = Column(Integer) # TODO: replace that with date
 
     # What follows is not an attribute but the establishment of one-to-many relationship
-    magazines = relationship("Magazines", back_populates="products")
+    magazines = relationship("Magazines", back_populates = "products")
 
 
 
