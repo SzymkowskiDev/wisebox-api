@@ -2,3 +2,4 @@ fastapi
 sqlalchemy
 sqlalchemy.orm
 pydantic
+uvicorn
