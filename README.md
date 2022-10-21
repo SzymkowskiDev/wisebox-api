@@ -37,7 +37,7 @@ The API will open in the browser at http://127.0.0.1:8000/docs
 ## 🔗 Related Projects
 * The top level repo [WiseBox](https://github.com/SzymkowskiDev/WiseBox)
 * The kanban board [WiseBox Project](https://github.com/users/SzymkowskiDev/projects/7/views/1)
-* Frontend app [wisebox-api](https://github.com/SzymkowskiDev/wisebox-app)
+* Frontend app [wisebox-app](https://github.com/SzymkowskiDev/wisebox-app)
 * API can be accessed online [here](https://d4ttvo.deta.dev/docs)
 
 ## 🎓 Learning materials
