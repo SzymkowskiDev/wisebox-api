@@ -13,7 +13,7 @@ cur.close()
 con.close()
 
 def radom_data() -> int:
-    return f"{randint(2010,2022)}-{randint(1,12)}-{randint(1,30)}"
+    return f"{randint(2010,2022)}-{randint(1,12)}-{randint(10,30)}"
 
 def upadate_products():
     for i in result:
@@ -22,7 +22,7 @@ def upadate_products():
         
 
         cur_wisebox.execute(f"""INSERT INTO PRODUCTS(MAG_ID,NAME,STATUS,QUANTITY,PRICE,DESCRIPTION,IMAGE,LOCATION,EXPIRY_DATE) 
-        VALUES (?,?,?,?,?,?,?,?,?); """,(int(randint(1,5)),str(i[0]),str(choice(['In stock','Sold','Damaged','Lost'])),str(i[1]),float(i[2]),str(i[3]),str(i[4]),str(choice(string.ascii_letters)),str(radom_data())))
+        VALUES (?,?,?,?,?,?,?,?,?); """,(int(randint(1,5)),str(i[0]),str(choice(['In stock','Sold','Damaged','Lost'])),str(i[1]),float(i[2]),str(i[3]),str(i[4]).split(',')[0],str(choice(string.ascii_letters)),str(radom_data())))
         
         con_wisebox.commit()
         cur_wisebox.close()
