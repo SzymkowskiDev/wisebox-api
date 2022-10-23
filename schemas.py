@@ -1,67 +1,34 @@
-from typing import Union
-
 from pydantic import BaseModel
 
 
+class UserOut(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+    email: str
 
 
+class UserIn(UserOut):
+    password: str
 
 
+class UserInDB(UserOut):
+    hashed_password: str
 
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 
+class TokenData(BaseModel):
+    email: str | None = None
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# class ItemBase(BaseModel):
-#     title: str
-#     description: Union[str, None] = None
-#
-#
-# class ItemCreate(ItemBase):
-#     pass
-#
-#
-# class Item(ItemBase):
-#     id: int
-#     owner_id: int
-#
-#     class Config:
-#         orm_mode = True
-#
-#
-# class UserBase(BaseModel):
-#     email: str
-#
-#
-# class UserCreate(UserBase):
-#     password: str
-#
-#
-# class User(UserBase):
-#     id: int
-#     is_active: bool
-#     items: list[Item] = []
-#
-#     class Config:
-#         orm_mode = True
+class Magazine(BaseModel):
+    id: int
+    name: str
+    description: str
+    avatar: str
+    location: str
+    date_of_creation: str
