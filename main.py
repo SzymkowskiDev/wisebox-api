@@ -23,6 +23,19 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
+def taken_email(user_in: UserIn):
+    # Database connection
+    conn = sqlite3.connect('wisebox_database.db')
+    c = conn.cursor()
+    c.execute('SELECT EMAIL FROM USERS')
+    emails = c.fetchall()
+    conn.commit()
+    conn.close()
+
+    if user_in.email in emails[0]:
+        return True
+
+
 def get_password_hash(user_in: UserIn):
     return pwd_context.hash(user_in.password)
 
@@ -81,15 +94,21 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     return user
 
 
-@app.post('/register/')
+@app.post('/register/', status_code=201)
 async def register(user_in: UserIn):
+    if taken_email(user_in):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="This email address is already used, please choose another one!",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     hashed_password = get_password_hash(user_in)
 
     # Database connection
     conn = sqlite3.connect('wisebox_database.db')
     c = conn.cursor()
-    to_db = f'"{user_in.id}", "{user_in.first_name}", "{user_in.last_name}", "{user_in.email}", "{hashed_password}"'
-    c.execute(f'INSERT INTO USERS VALUES ({to_db});')
+    c.execute(f'INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, HASH_PASSWORD) VALUES (?, ?, ?, ?)',
+              (user_in.first_name, user_in.last_name, user_in.email, hashed_password))
     conn.commit()
     conn.close()
 
