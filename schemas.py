@@ -1,15 +1,18 @@
 from pydantic import BaseModel
 
 
-class UserOut(BaseModel):
-    id: int
+class User(BaseModel):
     first_name: str
     last_name: str
     email: str
 
 
-class UserIn(UserOut):
+class UserIn(User):
     password: str
+
+
+class UserOut(User):
+    id: int
 
 
 class UserInDB(UserOut):
