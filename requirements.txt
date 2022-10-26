@@ -3,3 +3,5 @@ sqlalchemy
 sqlalchemy.orm
 pydantic
 uvicorn
+python-jose
+passlib
