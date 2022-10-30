@@ -10,7 +10,7 @@ from database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
+app.include_router(crud.magazine)
 
 # Dependency
 def get_db():
