@@ -1,67 +1,47 @@
-from sqlalchemy.orm import Session
-
+from database import engine
+from fastapi import APIRouter
 import models
-import schemas
+from sqlalchemy import text
+
+magazine = APIRouter()
 
 
+@magazine.get('/showall')
+def show_all():
+    list_of_data = []
+    with engine.connect() as conn:
+        result = conn.execute(text('''SELECT * from MAGAZINES'''))
+        for i in result:
+            list_of_data.append(i)
+    return list_of_data
 
 
+@magazine.post('/showone')
+def show_one(data: models.Id):
+    with engine.connect() as conn:
+        result = list(conn.execute(text(f'''SELECT * from MAGAZINES WHERE ROWID={data.user_id}''')))
+    return result
 
 
+@magazine.post('/add')
+def add_data(column: models.Columns):
+    with engine.connect() as conn:
+        result = conn.execute(text(
+            f'''INSERT INTO MAGAZINES VALUES('{column.USER_ID}', '{column.MAG_ID}', '{column.NAME}', '{column.DESCRIPTION}', '{column.AVATAR}', '{column.LOCATION}', '{column.DATE_OF_CREATION}')'''))
+    return 'Data correctly added.'
 
 
+@magazine.post('/update')
+def data_update(data: models.UserUpdate):
+    with engine.connect() as conn:
+        result = conn.execute(
+            text(f'''UPDATE MAGAZINES SET {data.column_name}='{data.new_data}' WHERE ROWID={data.user_id}'''))
+    return 'Data correctly updated.'
 
 
+@magazine.delete('/delete')
+def delete_item(data: models.Id):
+    with engine.connect() as conn:
+        result = conn.execute(text(f'''DELETE from MAGAZINES WHERE ROWID={data.user_id}'''))
+    return 'Data correctly deleted.'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def get_user(db: Session, user_id: int):
-#     return db.query(models.User).filter(models.User.id == user_id).first()
-#
-#
-# def get_user_by_email(db: Session, email: str):
-#     return db.query(models.User).filter(models.User.email == email).first()
-#
-#
-# def get_users(db: Session, skip: int = 0, limit: int = 100):
-#     return db.query(models.User).offset(skip).limit(limit).all()
-#
-#
-# def create_user(db: Session, user: schemas.UserCreate):
-#     fake_hashed_password = user.password + "notreallyhashed"
-#     db_user = models.User(email=user.email, hashed_password=fake_hashed_password)
-#     db.add(db_user)
-#     db.commit()
-#     db.refresh(db_user)
-#     return db_user
-#
-#
-# def get_items(db: Session, skip: int = 0, limit: int = 100):
-#     return db.query(models.Item).offset(skip).limit(limit).all()
-#
-#
-# def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
-#     db_item = models.Item(**item.dict(), owner_id=user_id)
-#     db.add(db_item)
-#     db.commit()
-#     db.refresh(db_item)
-#     return db_item

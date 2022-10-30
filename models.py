@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, Float
 from sqlalchemy.orm import relationship
-
+from pydantic import BaseModel
 from database import Base
 
 class Users(Base):
@@ -47,7 +47,24 @@ class Products(Base):
     # What follows is not an attribute but the establishment of one-to-many relationship
     magazines = relationship("Magazines", back_populates = "products")
 
+class Columns(BaseModel):
+    USER_ID: int
+    MAG_ID: int
+    NAME: str
+    DESCRIPTION: str
+    AVATAR: str
+    LOCATION: str
+    DATE_OF_CREATION: str
 
+
+class UserUpdate(BaseModel):
+    user_id: int
+    column_name: str
+    new_data: str
+
+
+class Id(BaseModel):
+    user_id: int
 
 
 
