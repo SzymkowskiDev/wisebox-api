@@ -32,3 +32,15 @@ class Magazine(BaseModel):
     avatar: str
     location: str
     date_of_creation: str
+
+class Product(BaseModel):
+    mag_id: int
+    prod_id: int
+    name: str
+    status: str
+    quantity: int
+    price: float
+    description: str
+    image: str
+    location: str
+    expiry_date: str
