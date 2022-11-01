@@ -5,8 +5,9 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from models import Products
 
-from schemas import UserIn, UserOut, UserInDB, Token, TokenData, Magazine
+from schemas import UserIn, UserOut, UserInDB, Token, TokenData, Magazine, Product
 import sqlite3
 
 SECRET_KEY = 'KEY'
@@ -120,7 +121,18 @@ async def read_users_me(current_user: UserOut = Depends(get_current_user)):
 
 @app.get("/users/me/items/")
 async def read_own_items(current_user: UserOut = Depends(get_current_user)):
-    return [{"item_id": "Foo", "owner": current_user.first_name}]
+    # Database connection
+    conn = sqlite3.connect('wisebox_database.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM PRODUCTS WHERE MAG_ID IN (SELECT MAG_ID From Magazines WHERE USER_ID=?) ORDER BY PRICE',(current_user.id,))
+    products = c.fetchall()
+    conn.commit()
+    conn.close()
+
+    list_of_product = []
+    for product in products:
+        list_of_product.append(Product( mag_id=product[0], prod_id=product[1] , name = product[2], status=product[3], quantity=product[4], price=product[5], description=product[6], image=product[7], location=product[8], expiry_date=product[9]))
+    return list_of_product
 
 
 @app.get("/magazines/")
