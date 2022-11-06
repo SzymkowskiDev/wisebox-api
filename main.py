@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Union
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -31,8 +32,10 @@ def taken_email(user_in: UserIn):
     emails = c.fetchall()
     conn.commit()
     conn.close()
+    if emails:
+        emails = [x[0] for x in emails]
 
-    if user_in.email in emails[0]:
+    if user_in.email in emails:
         return True
 
 
@@ -63,7 +66,7 @@ def authenticate_user(email: str, password: str):
     return user
 
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None):
+def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
