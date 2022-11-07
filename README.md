@@ -14,7 +14,9 @@ Navigate [https://d4ttvo.deta.dev/docs](https://d4ttvo.deta.dev/docs) to access 
 
 ### How to run the API locally?
 
-> Before proceeding install required packages as explaned in section ⚙ Dependencies.
+> Before proceeding install required packages as explaned in section ⚙ Dependencies. Generate a secret key 
+> ([example](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/#handle-jwt-tokens)) and set its value as a 
+> string in the SECRET_KEY variable in the main.py file.
 
 Then...
 
