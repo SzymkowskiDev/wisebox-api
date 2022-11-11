@@ -7,7 +7,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 from schemas import UserIn, UserOut, UserInDB, Token, TokenData, Magazine
-import sqlite3
+from database import engine
 
 SECRET_KEY = 'KEY'
 ALGORITHM = 'HS256'
@@ -25,16 +25,10 @@ def verify_password(plain_password, hashed_password):
 
 
 def taken_email(user_in: UserIn):
-    # Database connection
-    conn = sqlite3.connect('wisebox_database.db')
-    c = conn.cursor()
-    c.execute('SELECT EMAIL FROM USERS')
-    emails = c.fetchall()
-    conn.commit()
-    conn.close()
+    with engine.connect() as conn:
+        emails = conn.execute('SELECT EMAIL FROM USERS').fetchall()
     if emails:
         emails = [x[0] for x in emails]
-
     if user_in.email in emails:
         return True
 
@@ -44,16 +38,10 @@ def get_password_hash(user_in: UserIn):
 
 
 def get_user(email: str):
-    # Database connection
-    conn = sqlite3.connect('wisebox_database.db')
-    c = conn.cursor()
-    c.execute('SELECT * FROM USERS WHERE EMAIL=?', (email,))
-    user = c.fetchall()
+    with engine.connect() as conn:
+        user = conn.execute('SELECT * FROM USERS WHERE EMAIL=?', (email,)).fetchall()
     if user:
         user = user[0]
-    conn.close()
-
-    if user:
         return UserInDB(id=user[0], first_name=user[1], last_name=user[2], email=user[3], hashed_password=user[4])
 
 
@@ -106,15 +94,9 @@ async def register(user_in: UserIn):
             headers={"WWW-Authenticate": "Bearer"},
         )
     hashed_password = get_password_hash(user_in)
-
-    # Database connection
-    conn = sqlite3.connect('wisebox_database.db')
-    c = conn.cursor()
-    c.execute(f'INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, HASH_PASSWORD) VALUES (?, ?, ?, ?)',
-              (user_in.first_name, user_in.last_name, user_in.email, hashed_password))
-    conn.commit()
-    conn.close()
-
+    with engine.connect() as conn:
+        conn.execute(f'INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, HASH_PASSWORD) VALUES (?, ?, ?, ?)',
+                     (user_in.first_name, user_in.last_name, user_in.email, hashed_password))
     return 'Account created!'
 
 
@@ -146,14 +128,8 @@ async def read_own_items(current_user: UserOut = Depends(get_current_user)):
 
 @app.get("/magazines/")
 async def show_my_magazines(current_user: UserOut = Depends(get_current_user)):
-    # Database connection
-    conn = sqlite3.connect('wisebox_database.db')
-    c = conn.cursor()
-    c.execute('SELECT * FROM MAGAZINES WHERE USER_ID=?', (current_user.id,))
-    magazines = c.fetchall()
-    conn.commit()
-    conn.close()
-
+    with engine.connect() as conn:
+        magazines = conn.execute('SELECT * FROM MAGAZINES WHERE USER_ID=?', (current_user.id,)).fetchall()
     list_of_magazines = []
     for magazine in magazines:
         list_of_magazines.append(Magazine(id=magazine[1], name=magazine[2], description=magazine[3], avatar=magazine[4],
