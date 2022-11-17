@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from schemas import UserIn, UserOut, UserInDB, Token, TokenData, Magazine
+from schemas import UserIn, UserOut, UserInDB, Token, TokenData, Magazine, Product
 import sqlite3
 
 SECRET_KEY = 'KEY'
@@ -119,8 +119,31 @@ async def read_users_me(current_user: UserOut = Depends(get_current_user)):
 
 
 @app.get("/users/me/items/")
-async def read_own_items(current_user: UserOut = Depends(get_current_user)):
-    return [{"item_id": "Foo", "owner": current_user.first_name}]
+async def read_own_items(sort_by:str,search:str="",mag_location:str='',status: str='' ,min_Price:str=0,max_price:str="max",current_user: UserOut = Depends(get_current_user)):
+    status_query =  ' AND STATUS=\''+status+'\''
+    if status=='':
+        status_query = ''
+    max_price_query = ' AND PRICE<' +max_price
+    if max_price=='max':
+        max_price_query =""
+    search_query = ' AND NAME LIKE \'%'+search+'%\''
+    if search=="":
+        search_query =""
+    mag_query = 'Mag_id=(SELECT MAG_ID From Magazines WHERE LOCATION='+mag_location+')'
+    if mag_location=="":
+        mag_query = 'MAG_ID IN (SELECT MAG_ID From Magazines WHERE USER_ID='+str(current_user.id)+')'
+
+    print('SELECT * FROM PRODUCTS WHERE  AND PRICE> '+min_Price+max_price_query+' AND NAME LIKE \'%'+search+'%\''+status_query+' ORDER BY '+sort_by)
+    conn = sqlite3.connect('wisebox_database.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM PRODUCTS WHERE '+mag_query+' AND PRICE> '+min_Price+max_price_query+search_query+status_query+' ORDER BY '+sort_by,)
+    products = c.fetchall()
+    conn.commit()
+    conn.close()
+    list_of_product = []
+    for product in products:
+        list_of_product.append(Product( mag_id=product[0], prod_id=product[1] , name = product[2], status=product[3], quantity=product[4], price=product[5], description=product[6], image=product[7], location=product[8], expiry_date=product[9]))
+    return list_of_product
 
 
 @app.get("/magazines/")
